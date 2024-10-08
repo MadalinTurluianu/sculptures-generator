@@ -42,7 +42,8 @@ export const routes: Routes = [
       ),
   },
   {
-    path: '*',
+    path: '',
     redirectTo: 'orders',
+    pathMatch: 'full',
   },
 ];

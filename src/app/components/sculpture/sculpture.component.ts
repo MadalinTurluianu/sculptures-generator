@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-edit-sculpture',
+  selector: 'app-sculpture',
   standalone: true,
   imports: [],
-  templateUrl: './edit-sculpture.component.html',
-  styleUrl: './edit-sculpture.component.scss',
+  templateUrl: './sculpture.component.html',
+  styleUrl: './sculpture.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditSculptureComponent {}
+export class SculptureComponent {}

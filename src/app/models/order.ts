@@ -1,12 +1,24 @@
 import { ConfiguredSculptures } from './configured-sculpture';
 
+interface OrderProps {
+  id: string;
+  buyerName: string;
+  buyerDeliveryAddress: string;
+  configuredSculptures: ConfiguredSculptures[];
+}
+
 export class Order {
-  constructor(
-    public id: string,
-    public buyerName: string,
-    public buyerDeliveryAddress: string,
-    public configuredSculptures: ConfiguredSculptures[]
-  ) {}
+  id: string;
+  buyerName: string;
+  buyerDeliveryAddress: string;
+  configuredSculptures: ConfiguredSculptures[];
+
+  constructor(order: OrderProps) {
+    this.id = order.id;
+    this.buyerName = order.buyerName;
+    this.buyerDeliveryAddress = order.buyerDeliveryAddress;
+    this.configuredSculptures = order.configuredSculptures;
+  }
 
   get totalPrice(): number {
     return this.configuredSculptures.reduce(

@@ -1,1 +1,9 @@
-<p>orders works!</p>
+<header>
+  <h1>Your orders</h1>
+  <a routerLink="/orders/new"><button app-add-button></button></a>
+</header>
+<ul>
+  @for (order of ordersService.orders(); track order.id) {
+  <li><app-order [order]="order" /></li>
+  }
+</ul>
