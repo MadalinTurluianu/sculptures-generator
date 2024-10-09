@@ -1,0 +1,16 @@
+.configured-sculpture {
+  > div {
+    display: grid;
+    grid-template-columns: 2fr repeat(4, 1fr);
+    width: 100%;
+  }
+
+  .total {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+}

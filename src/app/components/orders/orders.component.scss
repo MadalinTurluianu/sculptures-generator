@@ -4,3 +4,13 @@ header {
   justify-content: space-between;
   padding: 1rem 2rem;
 }
+
+.navigation {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+
+  a {
+    all: unset;
+  }
+}

@@ -1,1 +1,17 @@
-<p>sculpture-generator works!</p>
+<div>
+  <label>Sculpture</label>
+  <select [(ngModel)]="sculptureId" (change)="changeHandler()">
+    @for (sculpture of sculptures(); track sculpture) {
+    <option [value]="sculpture.id">{{ sculpture.name }}</option>
+    }
+  </select>
+</div>
+
+<div>
+  <label>Material</label>
+  <select [(ngModel)]="material" (change)="changeHandler()">
+    @for (material of materials; track material) {
+    <option [value]="material">{{ material }}</option>
+    }
+  </select>
+</div>

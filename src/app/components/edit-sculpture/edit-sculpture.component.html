@@ -1,1 +1,9 @@
-<p>edit-sculpture works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="name" />
+  <input type="number" formControlName="basePrice" />
+  <input type="number" formControlName="baseWeight" />
+  <div class="actions">
+    <button type="button"><a routerLink="/sculptures">Cancel</a></button>
+    <button type="submit">Submit</button>
+  </div>
+</form>

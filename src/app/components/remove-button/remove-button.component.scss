@@ -1,0 +1,24 @@
+@import "../../../styles.scss";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 2px solid $danger-color;
+  color: $danger-color;
+  border-radius: 50%;
+  width: 20px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  padding: 0;
+
+  .mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+  }
+}

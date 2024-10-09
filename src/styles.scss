@@ -1,6 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 $accent-color: #2ebdff;
+$danger-color: #ff5050;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      flex: 1;
+    }
+
+    a {
+      all: unset;
+      display: block;
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+  }
+}

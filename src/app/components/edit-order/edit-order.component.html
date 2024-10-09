@@ -1,1 +1,28 @@
-<p>{{ id() }}</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="field">
+    <label>Buyer</label>
+    <input type="text" formControlName="buyerName" />
+  </div>
+
+  <div class="field">
+    <label>Delivery address</label>
+    <input type="text" formControlName="buyerDeliveryAddress" />
+  </div>
+
+  <div class="configured-sculpture">
+    <app-sculpture-generator formControlName="configuredSculpture" />
+    <button type="button" app-add-button (click)="onAdd()"></button>
+  </div>
+
+  <app-order-summary
+    [configuredSculptures]="configuredSculptures()"
+    [totalPrice]="totalPrice()"
+    [totalWeight]="totalWeight()"
+    (delete)="onDelete($event)"
+  />
+
+  <div class="actions">
+    <button type="button"><a routerLink="/orders">Cancel</a></button>
+    <button type="submit">Submit</button>
+  </div>
+</form>

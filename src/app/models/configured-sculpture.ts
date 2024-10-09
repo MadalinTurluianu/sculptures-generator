@@ -13,8 +13,19 @@ const materialWeight = {
   [Material.Platinum]: 30.3,
 };
 
-export class ConfiguredSculptures {
-  constructor(public sculpture: Sculpture, public material: Material) {}
+interface ConfiguredSculptureProps {
+  material: Material;
+  sculpture: Sculpture;
+}
+
+export class ConfiguredSculpture {
+  material: Material;
+  sculpture: Sculpture;
+
+  constructor(props: ConfiguredSculptureProps) {
+    this.material = props.material;
+    this.sculpture = props.sculpture;
+  }
 
   get price(): number {
     return this.sculpture.basePrice * materialPrice[this.material];

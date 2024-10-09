@@ -6,12 +6,14 @@ import { Order } from 'app/models/order';
 })
 export class OrdersService {
   private savedOrders = signal<Order[]>([
-    new Order({
+    {
       id: '1',
       buyerName: 'test',
       buyerDeliveryAddress: 'test',
       configuredSculptures: [],
-    }),
+      totalPrice: 0,
+      totalWeight: 0,
+    },
   ]);
 
   orders = this.savedOrders.asReadonly();
@@ -20,8 +22,8 @@ export class OrdersService {
     return this.savedOrders.asReadonly();
   }
 
-  getOrderById(id: string): Signal<Order | undefined> {
-    return computed(() => this.savedOrders().find((order) => order.id === id));
+  getOrderById(id: string): Order | undefined {
+    return this.savedOrders().find((order) => order.id === id);
   }
 
   upsertOrder(order: Order): void {

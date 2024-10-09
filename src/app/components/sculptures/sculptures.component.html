@@ -1,1 +1,12 @@
-<p>sculptures works!</p>
+<header>
+  <h1>Your Sculptures</h1>
+  <a routerLink="/sculptures/new"><button app-add-button></button></a>
+</header>
+<ul>
+  @for (sculpture of sculpturesService.sculptures(); track sculpture.id) {
+  <li><app-sculpture [sculpture]="sculpture" /></li>
+  }
+</ul>
+<button class="navigation">
+  <a routerLink="/orders">Check your orders</a>
+</button>

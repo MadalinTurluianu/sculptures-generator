@@ -5,14 +5,19 @@ import { Sculpture } from 'app/models/sculpture';
   providedIn: 'root',
 })
 export class SculpturesService {
-  private savedSculptures = signal<Sculpture[]>([]);
+  private savedSculptures = signal<Sculpture[]>([
+    {
+      id: '1',
+      name: 'test',
+      basePrice: 2,
+      baseWeight: 4,
+    },
+  ]);
 
   sculptures = this.savedSculptures.asReadonly();
 
-  getSculptureById(id: string): Signal<Sculpture | undefined> {
-    return computed(() =>
-      this.savedSculptures().find((sculpture) => sculpture.id === id)
-    );
+  getSculptureById(id: string): Sculpture | undefined {
+    return this.savedSculptures().find((sculpture) => sculpture.id === id);
   }
 
   upsertSculpture(sculpture: Sculpture): void {
@@ -22,9 +27,9 @@ export class SculpturesService {
 
     if (index >= 0) {
       this.savedSculptures.update((sculptures) => {
-        const newOrders = [...sculptures];
-        newOrders[index] = sculpture;
-        return newOrders;
+        const newSculptures = [...sculptures];
+        newSculptures[index] = sculpture;
+        return newSculptures;
       });
     } else {
       this.savedSculptures.update((sculptures) => {

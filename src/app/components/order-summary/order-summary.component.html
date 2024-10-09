@@ -1,0 +1,30 @@
+@if (configuredSculptures().length > 0) {
+<div class="configured-sculpture">
+  <div class="bold">
+    <span>Sculpture</span>
+    <span>Material</span>
+    <span>Weight</span>
+    <span>Price</span>
+  </div>
+  @for (item of configuredSculptures(); track $index) {
+  <div>
+    <span>{{ item.sculpture.name }}</span>
+    <span>{{ item.material }}</span>
+    <span
+      >{{ configuredSculptures()[$index].weight | number : "1.0-2" }}kg</span
+    >
+    <span>{{
+      configuredSculptures()[$index].price
+        | currency : "EUR" : "symbol" : "1.0-2"
+    }}</span>
+    <button type="button" app-remove-button (click)="onDelete($index)"></button>
+  </div>
+  }
+
+  <div class="bold">
+    <span class="total">Total</span>
+    <span>{{ totalWeight() | number : "1.0-2" }}kg</span>
+    <span>{{ totalPrice() | currency : "EUR" : "symbol" : "1.0-2" }}</span>
+  </div>
+</div>
+}
