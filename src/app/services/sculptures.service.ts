@@ -1,5 +1,6 @@
-import { Injectable, OnChanges, OnInit, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Sculpture } from 'app/models/sculpture';
+import { loadDataFromStorage, saveDataInStorage } from './helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -10,22 +11,12 @@ export class SculpturesService {
   sculptures = this.savedSculptures.asReadonly();
 
   constructor() {
-    window.electronAPI.readData('sculptures').then((savedDataJson) => {
-      if (typeof savedDataJson !== 'string') return;
-
-      const savedData = JSON.parse(savedDataJson);
-
-      if (Array.isArray(savedData)) {
-        this.savedSculptures.set(savedData);
-      }
-    });
+    const savedData = loadDataFromStorage('sculptures');
+    this.savedSculptures.set(savedData);
   }
 
   save() {
-    window.electronAPI.saveData(
-      'sculptures',
-      JSON.stringify(this.savedSculptures())
-    );
+    saveDataInStorage('sculptures', JSON.stringify(this.savedSculptures()));
   }
 
   getSculptureById(id: string): Sculpture | undefined {

@@ -6,8 +6,6 @@ async function electronSaveData(name, data) {
   const appDataPath = app.getPath("appData");
   const filePath = path.join(appDataPath, `${name}.json`);
 
-  console.log(filePath);
-
   try {
     await writeFile(filePath, data);
     return {

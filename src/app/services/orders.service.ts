@@ -1,5 +1,6 @@
-import { Injectable, OnInit, Signal, signal } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 import { Order } from 'app/models/order';
+import { loadDataFromStorage, saveDataInStorage } from './helpers';
 
 @Injectable({
   providedIn: 'root',
@@ -10,19 +11,12 @@ export class OrdersService {
   orders = this.savedOrders.asReadonly();
 
   constructor() {
-    window.electronAPI.readData('orders').then((savedDataJson) => {
-      if (typeof savedDataJson !== 'string') return;
-
-      const savedData = JSON.parse(savedDataJson);
-
-      if (Array.isArray(savedData)) {
-        this.savedOrders.set(savedData);
-      }
-    });
+    const savedData = loadDataFromStorage('orders');
+    this.savedOrders.set(savedData);
   }
 
   save() {
-    window.electronAPI.saveData('orders', JSON.stringify(this.savedOrders()));
+    saveDataInStorage('orders', JSON.stringify(this.savedOrders()));
   }
 
   getAllOrders(): Signal<Order[]> {
