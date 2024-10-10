@@ -85,8 +85,6 @@ export class EditOrderComponent implements OnInit {
   );
 
   totalWeight = computed(() => {
-    console.log(this.configuredSculptures());
-
     return this.configuredSculptures().reduce(
       (prev, current) => prev + current.weight,
       0
@@ -112,8 +110,6 @@ export class EditOrderComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
-
     if (
       !this.form.controls['buyerName'].valid ||
       !this.form.controls['buyerDeliveryAddress'].valid ||

@@ -1,22 +1,29 @@
-import { computed, Injectable, Signal, signal } from '@angular/core';
+import { Injectable, OnInit, Signal, signal } from '@angular/core';
 import { Order } from 'app/models/order';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrdersService {
-  private savedOrders = signal<Order[]>([
-    {
-      id: '1',
-      buyerName: 'test',
-      buyerDeliveryAddress: 'test',
-      configuredSculptures: [],
-      totalPrice: 0,
-      totalWeight: 0,
-    },
-  ]);
+  private savedOrders = signal<Order[]>([]);
 
   orders = this.savedOrders.asReadonly();
+
+  constructor() {
+    window.electronAPI.readData('orders').then((savedDataJson) => {
+      if (typeof savedDataJson !== 'string') return;
+
+      const savedData = JSON.parse(savedDataJson);
+
+      if (Array.isArray(savedData)) {
+        this.savedOrders.set(savedData);
+      }
+    });
+  }
+
+  save() {
+    window.electronAPI.saveData('orders', JSON.stringify(this.savedOrders()));
+  }
 
   getAllOrders(): Signal<Order[]> {
     return this.savedOrders.asReadonly();
@@ -40,11 +47,15 @@ export class OrdersService {
         return [...orders, order];
       });
     }
+
+    this.save();
   }
 
   deleteOrder(id: string): void {
     this.savedOrders.update((orders) =>
       orders.filter((order) => order.id !== id)
     );
+
+    this.save();
   }
 }

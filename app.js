@@ -1,46 +1,39 @@
-try {
-  require('electron-reloader')(module)
-} catch (_) {}
-
 const { app, BrowserWindow } = require("electron");
-const url = require("url");
 const path = require("path");
+const { ipcProcess } = require("./electron/ipc-process");
 
-let mainWindow;
+let win;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+  win = new BrowserWindow({
+    width: 1920,
+    height: 1080,
     webPreferences: {
       nodeIntegration: true,
+      preload: path.join(__dirname, "electron/preload.js"),
     },
   });
 
-  mainWindow.loadURL(
-    url.format({
-      pathname: path.join(
-        __dirname,
-        `/dist/sculptures-generator/browser/index.html`
-      ),
-      protocol: "file:",
-      slashes: true,
-    })
-  );
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  win.webContents.openDevTools();
 
-  mainWindow.on("closed", function () {
-    mainWindow = null;
-  });
+  ipcProcess();
+
+  win.loadFile(
+    path.join(__dirname, `dist/sculptures-generator/browser/index.html`)
+  );
+
+  // Open the DevTools.
+  // win.webContents.openDevTools();
 }
 
-app.on("ready", createWindow);
+app.on("ready", () => {
+  createWindow();
 
-app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") app.quit();
+  app.on("activate", () => {
+    if (win === null) createWindow();
+  });
 });
 
-app.on("activate", function () {
-  if (mainWindow === null) createWindow();
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
 });
