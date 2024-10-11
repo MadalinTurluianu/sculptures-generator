@@ -1,0 +1,8 @@
+@import "../../../../styles.scss";
+
+:host {
+  border: 1px solid $danger-color;
+  border-radius: 4px;
+  padding: 0.5rem;
+  color: $danger-color;
+}

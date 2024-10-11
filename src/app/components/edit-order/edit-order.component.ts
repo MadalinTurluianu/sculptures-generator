@@ -24,6 +24,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { EditItemComponent } from '../shared/edit-item/edit-item.component';
 import { AddButtonComponent } from '../shared/add-button/add-button.component';
+import { ErrorMessageComponent } from '../shared/error-message/error-message.component';
+import { FormErrorComponent } from '../shared/form-error/form-error.component';
 
 type FormConfiguredSculpture = Partial<
   Pick<ConfiguredSculpture, 'material' | 'sculpture'>
@@ -42,6 +44,8 @@ type FormConfiguredSculpture = Partial<
     MatButtonModule,
     EditItemComponent,
     AddButtonComponent,
+    ErrorMessageComponent,
+    FormErrorComponent,
   ],
   templateUrl: './edit-order.component.html',
   styleUrl: './edit-order.component.scss',
@@ -128,6 +132,8 @@ export class EditOrderComponent implements OnChanges {
   }
 
   onSubmit() {
+    console.log(this.form);
+
     if (
       !this.form.controls['buyerName'].valid ||
       !this.form.controls['buyerDeliveryAddress'].valid ||

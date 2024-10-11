@@ -3,16 +3,25 @@
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput type="text" formControlName="name" />
+      <mat-error
+        ><app-error-message [errors]="form.get('name')?.errors" />
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Base price</mat-label>
       <input matInput type="number" formControlName="basePrice" />
+      <mat-error
+        ><app-error-message [errors]="form.get('basePrice')?.errors" />
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Base weight</mat-label>
       <input matInput type="number" formControlName="baseWeight" />
+      <mat-error
+        ><app-error-message [errors]="form.get('baseWeight')?.errors" />
+      </mat-error>
     </mat-form-field>
 
     <div class="actions">

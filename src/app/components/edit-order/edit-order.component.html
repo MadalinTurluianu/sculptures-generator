@@ -3,11 +3,19 @@
     <mat-form-field>
       <mat-label>Buyer</mat-label>
       <input matInput type="text" formControlName="buyerName" />
+      <mat-error
+        ><app-error-message [errors]="form.get('buyerName')?.errors" />
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Delivery address</mat-label>
       <input matInput type="text" formControlName="buyerDeliveryAddress" />
+      <mat-error
+        ><app-error-message
+          [errors]="form.get('buyerDeliveryAddress')?.errors"
+        />
+      </mat-error>
     </mat-form-field>
 
     <div class="configured-sculpture">
@@ -16,6 +24,8 @@
         <app-add-button type="button" (add)="onAdd()"></app-add-button>
       </div>
     </div>
+
+    <app-form-error [errors]="form.get('configuredSculpture')?.errors" />
 
     <app-order-summary
       [configuredSculptures]="configuredSculptures()"
