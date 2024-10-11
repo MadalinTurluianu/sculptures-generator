@@ -21,17 +21,13 @@ interface ConfiguredSculptureProps {
 export class ConfiguredSculpture {
   material: Material;
   sculpture: Sculpture;
+  price: number;
+  weight: number;
 
   constructor(props: ConfiguredSculptureProps) {
     this.material = props.material;
     this.sculpture = props.sculpture;
-  }
-
-  get price(): number {
-    return this.sculpture.basePrice * materialPrice[this.material];
-  }
-
-  get weight(): number {
-    return this.sculpture.baseWeight * materialWeight[this.material];
+    this.price = this.sculpture.basePrice * materialPrice[this.material];
+    this.weight = this.sculpture.baseWeight * materialWeight[this.material];
   }
 }

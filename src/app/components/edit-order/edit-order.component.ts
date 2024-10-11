@@ -22,8 +22,8 @@ import { formValidators } from 'app/validators';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { EditItemComponent } from "../shared/edit-item/edit-item.component";
-import { AddButtonComponent } from "../shared/add-button/add-button.component";
+import { EditItemComponent } from '../shared/edit-item/edit-item.component';
+import { AddButtonComponent } from '../shared/add-button/add-button.component';
 
 type FormConfiguredSculpture = Partial<
   Pick<ConfiguredSculpture, 'material' | 'sculpture'>
@@ -41,8 +41,8 @@ type FormConfiguredSculpture = Partial<
     MatInputModule,
     MatButtonModule,
     EditItemComponent,
-    AddButtonComponent
-],
+    AddButtonComponent,
+  ],
   templateUrl: './edit-order.component.html',
   styleUrl: './edit-order.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
