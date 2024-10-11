@@ -1,0 +1,10 @@
+<section>
+  <ng-content />
+</section>
+<nav>
+  @if (prevLink()) {
+  <a mat-button [routerLink]="prevLink()">&lt; Previous</a>
+  } @if (nextLink()) {
+  <a mat-button class="next" [routerLink]="nextLink()">Next &gt;</a>
+  }
+</nav>

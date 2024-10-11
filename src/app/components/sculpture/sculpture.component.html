@@ -1,2 +1,6 @@
-<a [routerLink]="['/sculptures', sculpture().id]">{{ sculpture().name }}</a>
-<button app-remove-button (click)="onDelete()"></button>
+<app-list-item
+  [key]="sculpture().id"
+  [name]="sculpture().name"
+  [link]="['/sculptures', sculpture().id]"
+  (delete)="onDelete()"
+/>

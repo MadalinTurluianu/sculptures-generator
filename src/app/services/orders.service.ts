@@ -54,6 +54,8 @@ export class OrdersService {
   }
 
   getNextOrderId(currentOrderId?: string): string | undefined {
+    if (!currentOrderId) return undefined;
+
     const currentIndex = this.savedOrders().findIndex(
       ({ id }) => id === currentOrderId
     );
@@ -62,6 +64,8 @@ export class OrdersService {
   }
 
   getPreviousOrderId(currentOrderId?: string): string | undefined {
+    if (!currentOrderId) return undefined;
+
     const currentIndex = this.savedOrders().findIndex(
       ({ id }) => id === currentOrderId
     );

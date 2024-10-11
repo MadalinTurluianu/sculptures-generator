@@ -1,18 +1,23 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="name" />
-  <input type="number" formControlName="basePrice" />
-  <input type="number" formControlName="baseWeight" />
-  <div class="actions">
-    <button type="button"><a routerLink="/sculptures">Cancel</a></button>
-    <button type="submit">Submit</button>
-  </div>
-</form>
-@if (previousId()) {
-<button class="navigation">
-  <a [routerLink]="['/sculptures', previousId()]">Previous</a>
-</button>
-} @if (nextId()) {
-<button class="navigation">
-  <a [routerLink]="['/sculptures', nextId()]">Next</a>
-</button>
-}
+<app-edit-item [prevLink]="prevLink()" [nextLink]="nextLink()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Base price</mat-label>
+      <input matInput type="number" formControlName="basePrice" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Base weight</mat-label>
+      <input matInput type="number" formControlName="baseWeight" />
+    </mat-form-field>
+
+    <div class="actions">
+      <a mat-button routerLink="/sculptures">Cancel</a>
+      <button mat-flat-button type="submit">Submit</button>
+    </div>
+  </form>
+</app-edit-item>

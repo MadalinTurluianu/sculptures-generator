@@ -1,1 +1,21 @@
-<router-outlet />
+<header>
+  <nav>
+    <a
+      mat-button
+      routerLink="/sculptures"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Sculptures</a
+    >
+    <a
+      mat-button
+      routerLink="/orders"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Orders</a
+    >
+  </nav>
+</header>
+<main>
+  <router-outlet />
+</main>

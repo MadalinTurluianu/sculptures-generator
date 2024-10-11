@@ -52,6 +52,8 @@ export class SculpturesService {
   }
 
   getNextSculptureId(currentSculptureId?: string): string | undefined {
+    if (!currentSculptureId) return undefined;
+
     const currentIndex = this.savedSculptures().findIndex(
       ({ id }) => id === currentSculptureId
     );
@@ -60,6 +62,8 @@ export class SculpturesService {
   }
 
   getPreviousSculptureId(currentSculptureId?: string): string | undefined {
+    if (!currentSculptureId) return undefined;
+
     const currentIndex = this.savedSculptures().findIndex(
       ({ id }) => id === currentSculptureId
     );

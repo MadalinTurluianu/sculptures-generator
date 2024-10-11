@@ -1,2 +1,6 @@
-<a [routerLink]="['/orders', order().id]">{{ order().buyerName }}</a>
-<button app-remove-button (click)="onDelete()"></button>
+<app-list-item
+  [key]="order().id"
+  [name]="order().buyerName"
+  [link]="['/orders', order().id]"
+  (delete)="onDelete()"
+/>

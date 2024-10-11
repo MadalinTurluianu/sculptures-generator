@@ -18,8 +18,12 @@ import { SculptureGeneratorComponent } from '../sculpture-generator/sculpture-ge
 import { Router, RouterLink } from '@angular/router';
 import { ConfiguredSculpture } from 'app/models/configured-sculpture';
 import { OrderSummaryComponent } from '../order-summary/order-summary.component';
-import { AddButtonComponent } from '../add-button/add-button.component';
 import { formValidators } from 'app/validators';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { EditItemComponent } from "../shared/edit-item/edit-item.component";
+import { AddButtonComponent } from "../shared/add-button/add-button.component";
 
 type FormConfiguredSculpture = Partial<
   Pick<ConfiguredSculpture, 'material' | 'sculpture'>
@@ -33,8 +37,12 @@ type FormConfiguredSculpture = Partial<
     SculptureGeneratorComponent,
     RouterLink,
     OrderSummaryComponent,
-    AddButtonComponent,
-  ],
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    EditItemComponent,
+    AddButtonComponent
+],
   templateUrl: './edit-order.component.html',
   styleUrl: './edit-order.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,8 +54,15 @@ export class EditOrderComponent implements OnChanges {
   ordersService = inject(OrdersService);
 
   form: FormGroup = new FormGroup({});
-  nextId = computed(() => this.ordersService.getNextOrderId(this.id()));
-  previousId = computed(() => this.ordersService.getPreviousOrderId(this.id()));
+  nextLink = computed(() => {
+    const nextId = this.ordersService.getNextOrderId(this.id());
+    return nextId ? ['/orders', nextId] : undefined;
+  });
+  prevLink = computed(() => {
+    const prevId = this.ordersService.getPreviousOrderId(this.id());
+    return prevId ? ['/orders', prevId] : undefined;
+  });
+
   configuredSculptures = signal<ConfiguredSculpture[]>([]);
   submitted = false;
 

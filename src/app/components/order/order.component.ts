@@ -7,14 +7,14 @@ import {
 import { RouterLink } from '@angular/router';
 import { Order } from 'app/models/order';
 import { OrdersService } from 'app/services/orders.service';
-import { RemoveButtonComponent } from '../remove-button/remove-button.component';
+import { MatCardModule } from '@angular/material/card';
+import { ListItemComponent } from '../shared/list-item/list-item.component';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [RouterLink, RemoveButtonComponent],
+  imports: [RouterLink, MatCardModule, ListItemComponent],
   templateUrl: './order.component.html',
-  styleUrl: './order.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderComponent {

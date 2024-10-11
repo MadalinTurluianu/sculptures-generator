@@ -5,22 +5,19 @@ import {
   HostListener,
   inject,
 } from '@angular/core';
-import {
-  ControlValueAccessor,
-  FormsModule,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ConfiguredSculpture } from 'app/models/configured-sculpture';
 import { Material } from 'app/models/material';
-import { Sculpture } from 'app/models/sculpture';
 import { SculpturesService } from 'app/services/sculptures.service';
+import { MatSelectModule } from '@angular/material/select';
 
 type OnChangeFunction = (value: Partial<ConfiguredSculpture>) => void;
 
 @Component({
   selector: 'app-sculpture-generator',
   standalone: true,
-  imports: [FormsModule],
+  imports: [MatFormFieldModule, MatSelectModule],
   templateUrl: './sculpture-generator.component.html',
   styleUrl: './sculpture-generator.component.scss',
   providers: [
@@ -44,7 +41,18 @@ export class SculptureGeneratorComponent implements ControlValueAccessor {
   onChange: OnChangeFunction = () => {};
   onTouch: VoidFunction = () => {};
 
-  changeHandler(): void {
+  changeSculptureHandler(value: string): void {
+    this.sculptureId = value;
+
+    this.onChange({
+      material: this.material,
+      sculpture: this.sculptures().find(({ id }) => id === this.sculptureId),
+    });
+  }
+
+  changeMaterialHandler(value: Material): void {
+    this.material = value;
+
     this.onChange({
       material: this.material,
       sculpture: this.sculptures().find(({ id }) => id === this.sculptureId),

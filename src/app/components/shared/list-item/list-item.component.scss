@@ -1,0 +1,31 @@
+@import "../../../../styles.scss";
+
+mat-card {
+  background-color: $tertiary-color;
+
+  &:hover {
+    background-color: $secondary-color;
+  }
+
+  mat-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 1rem;
+  }
+}
+
+a {
+  all: unset;
+  cursor: pointer;
+  flex: 1;
+  padding: 1rem;
+}
+
+li {
+  all: unset;
+  display: block;
+}

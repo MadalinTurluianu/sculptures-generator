@@ -1,0 +1,32 @@
+@import "../styles.scss";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+header {
+  background-color: $primary-color;
+  padding: 0.5rem;
+
+  nav {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  a.mat-mdc-button:not(:disabled):not(.active) {
+    color: currentColor;
+  }
+
+  a.active {
+    color: $accent-color;
+  }
+}
+
+main,
+nav {
+  margin: auto;
+  width: 100%;
+  max-width: $win-max;
+}

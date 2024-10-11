@@ -1,10 +1,5 @@
-<header>
-  <h1>Your orders</h1>
-  <a routerLink="/orders/new"><button app-add-button></button></a>
-</header>
-<ul>
+<app-list [addItemLink]="['/orders', 'new']" title="Your orders">
   @for (order of ordersService.orders(); track order.id) {
-  <li><app-order [order]="order" /></li>
-  }
-</ul>
-<button class="navigation"><a routerLink="/sculptures">Check your sculptures</a></button>
+  <app-order [order]="order" />
+  }</app-list
+>

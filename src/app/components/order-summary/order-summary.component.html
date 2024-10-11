@@ -17,7 +17,7 @@
       configuredSculptures()[$index].price
         | currency : "EUR" : "symbol" : "1.0-2"
     }}</span>
-    <button type="button" app-remove-button (click)="onDelete($index)"></button>
+    <app-remove-button (delete)="onDelete($index)"></app-remove-button>
   </div>
   }
 

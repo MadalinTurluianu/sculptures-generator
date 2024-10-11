@@ -1,0 +1,8 @@
+<li>
+  <mat-card appearance="raised">
+    <mat-card-content>
+      <a [routerLink]="link()">{{ name() }}</a>
+      <app-remove-button (delete)="onDelete()"></app-remove-button
+    ></mat-card-content>
+  </mat-card>
+</li>

@@ -1,12 +1,5 @@
-<header>
-  <h1>Your Sculptures</h1>
-  <a routerLink="/sculptures/new"><button app-add-button></button></a>
-</header>
-<ul>
+<app-list [addItemLink]="['/sculptures', 'new']" title="Your Sculptures">
   @for (sculpture of sculpturesService.sculptures(); track sculpture.id) {
-  <li><app-sculpture [sculpture]="sculpture" /></li>
-  }
-</ul>
-<button class="navigation">
-  <a routerLink="/orders">Check your orders</a>
-</button>
+  <app-sculpture [sculpture]="sculpture" />
+  }</app-list
+>

@@ -12,17 +12,26 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormField, MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 import { Sculpture } from 'app/models/sculpture';
 import { SculpturesService } from 'app/services/sculptures.service';
 import { formValidators } from 'app/validators';
+import { EditItemComponent } from '../shared/edit-item/edit-item.component';
 
 @Component({
   selector: 'app-edit-sculpture',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    MatButtonModule,
+    MatInputModule,
+    MatFormField,
+    EditItemComponent,
+  ],
   templateUrl: './edit-sculpture.component.html',
-  styleUrl: './edit-sculpture.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditSculptureComponent implements OnChanges {
@@ -30,12 +39,17 @@ export class EditSculptureComponent implements OnChanges {
 
   sculpturesService = inject(SculpturesService);
 
-  nextId = computed(() => this.sculpturesService.getNextSculptureId(this.id()));
-  previousId = computed(() =>
-    this.sculpturesService.getPreviousSculptureId(this.id())
-  );
+  nextLink = computed(() => {
+    const nextId = this.sculpturesService.getNextSculptureId(this.id());
+    return nextId ? ['/sculptures', nextId] : undefined;
+  });
+  prevLink = computed(() => {
+    const prevId = this.sculpturesService.getPreviousSculptureId(this.id());
+    return prevId ? ['/sculptures', prevId] : undefined;
+  });
 
   router = inject(Router);
+  submitted = false;
 
   form: FormGroup = new FormGroup({});
 
@@ -69,6 +83,8 @@ export class EditSculptureComponent implements OnChanges {
     };
 
     this.sculpturesService.upsertSculpture(sculpture);
+
+    this.submitted = true;
     this.router.navigate(['/sculptures']);
   }
 }

@@ -1,38 +1,32 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="field">
-    <label>Buyer</label>
-    <input type="text" formControlName="buyerName" />
-  </div>
+<app-edit-item [prevLink]="prevLink()" [nextLink]="nextLink()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Buyer</mat-label>
+      <input matInput type="text" formControlName="buyerName" />
+    </mat-form-field>
 
-  <div class="field">
-    <label>Delivery address</label>
-    <input type="text" formControlName="buyerDeliveryAddress" />
-  </div>
+    <mat-form-field>
+      <mat-label>Delivery address</mat-label>
+      <input matInput type="text" formControlName="buyerDeliveryAddress" />
+    </mat-form-field>
 
-  <div class="configured-sculpture">
-    <app-sculpture-generator formControlName="configuredSculpture" />
-    <button type="button" app-add-button (click)="onAdd()"></button>
-  </div>
+    <div class="configured-sculpture">
+      <app-sculpture-generator formControlName="configuredSculpture" />
+      <div class="add-container">
+        <app-add-button type="button" (add)="onAdd()"></app-add-button>
+      </div>
+    </div>
 
-  <app-order-summary
-    [configuredSculptures]="configuredSculptures()"
-    [totalPrice]="totalPrice()"
-    [totalWeight]="totalWeight()"
-    (delete)="onDelete($event)"
-  />
+    <app-order-summary
+      [configuredSculptures]="configuredSculptures()"
+      [totalPrice]="totalPrice()"
+      [totalWeight]="totalWeight()"
+      (delete)="onDelete($event)"
+    />
 
-  <div class="actions">
-    <button type="button"><a routerLink="/orders">Cancel</a></button>
-    <button type="submit">Submit</button>
-  </div>
-</form>
-
-@if (previousId()) {
-<button class="navigation">
-  <a [routerLink]="['/orders', previousId()]">Previous</a>
-</button>
-} @if (nextId()) {
-<button class="navigation">
-  <a [routerLink]="['/orders', nextId()]">Next</a>
-</button>
-}
+    <div class="actions">
+      <a mat-button routerLink="/orders">Cancel</a>
+      <button mat-flat-button type="submit">Submit</button>
+    </div>
+  </form>
+</app-edit-item>

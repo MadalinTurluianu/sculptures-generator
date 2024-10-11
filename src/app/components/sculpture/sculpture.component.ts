@@ -7,14 +7,13 @@ import {
 import { RouterLink } from '@angular/router';
 import { Sculpture } from 'app/models/sculpture';
 import { SculpturesService } from 'app/services/sculptures.service';
-import { RemoveButtonComponent } from '../remove-button/remove-button.component';
+import { ListItemComponent } from '../shared/list-item/list-item.component';
 
 @Component({
   selector: 'app-sculpture',
   standalone: true,
-  imports: [RouterLink, RemoveButtonComponent],
+  imports: [RouterLink, ListItemComponent],
   templateUrl: './sculpture.component.html',
-  styleUrl: './sculpture.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SculptureComponent {
