@@ -4,8 +4,7 @@ import {
   computed,
   inject,
   input,
-  Input,
-  OnInit,
+  OnChanges,
   signal,
 } from '@angular/core';
 import {
@@ -40,16 +39,20 @@ type FormConfiguredSculpture = Partial<
   styleUrl: './edit-order.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditOrderComponent implements OnInit {
+export class EditOrderComponent implements OnChanges {
   id = input<string>();
 
-  ordersService = inject(OrdersService);
   router = inject(Router);
+  ordersService = inject(OrdersService);
 
   form: FormGroup = new FormGroup({});
+  nextId = computed(() => this.ordersService.getNextOrderId(this.id()));
+  previousId = computed(() => this.ordersService.getPreviousOrderId(this.id()));
   configuredSculptures = signal<ConfiguredSculpture[]>([]);
+  submitted = false;
 
-  ngOnInit() {
+  ngOnChanges() {
+    this.submitted = false;
     const id = this.id();
     const order = id ? this.ordersService.getOrderById(id) : undefined;
 
@@ -113,7 +116,8 @@ export class EditOrderComponent implements OnInit {
     if (
       !this.form.controls['buyerName'].valid ||
       !this.form.controls['buyerDeliveryAddress'].valid ||
-      this.configuredSculptures().length === 0
+      this.configuredSculptures().length === 0 ||
+      this.totalWeight() > 100
     ) {
       return;
     }
@@ -127,6 +131,7 @@ export class EditOrderComponent implements OnInit {
       totalWeight: this.totalWeight(),
     });
 
+    this.submitted = true;
     this.router.navigate(['/orders']);
   }
 }

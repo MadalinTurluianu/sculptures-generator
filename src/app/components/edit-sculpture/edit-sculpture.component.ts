@@ -4,7 +4,7 @@ import {
   computed,
   inject,
   input,
-  OnInit,
+  OnChanges,
 } from '@angular/core';
 import {
   FormGroup,
@@ -25,15 +25,21 @@ import { formValidators } from 'app/validators';
   styleUrl: './edit-sculpture.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditSculptureComponent implements OnInit {
+export class EditSculptureComponent implements OnChanges {
   id = input<string>();
 
   sculpturesService = inject(SculpturesService);
+
+  nextId = computed(() => this.sculpturesService.getNextSculptureId(this.id()));
+  previousId = computed(() =>
+    this.sculpturesService.getPreviousSculptureId(this.id())
+  );
+
   router = inject(Router);
 
   form: FormGroup = new FormGroup({});
 
-  ngOnInit() {
+  ngOnChanges() {
     const id = this.id();
     const sculpture = id
       ? this.sculpturesService.getSculptureById(id)

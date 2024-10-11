@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { OrdersComponent } from './components/orders/orders.component';
+import { canDeactivateForm } from './app.guards';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,7 @@ export const routes: Routes = [
       import('./components/edit-order/edit-order.component').then(
         (modules) => modules.EditOrderComponent
       ),
+    canDeactivate: [canDeactivateForm],
   },
   {
     path: 'orders/:id',
@@ -19,6 +21,7 @@ export const routes: Routes = [
       import('./components/edit-order/edit-order.component').then(
         (modules) => modules.EditOrderComponent
       ),
+    canDeactivate: [canDeactivateForm],
   },
   {
     path: 'sculptures',
@@ -33,6 +36,7 @@ export const routes: Routes = [
       import('./components/edit-sculpture/edit-sculpture.component').then(
         (modules) => modules.EditSculptureComponent
       ),
+    canDeactivate: [canDeactivateForm],
   },
   {
     path: 'sculptures/:id',
@@ -40,6 +44,7 @@ export const routes: Routes = [
       import('./components/edit-sculpture/edit-sculpture.component').then(
         (modules) => modules.EditSculptureComponent
       ),
+    canDeactivate: [canDeactivateForm],
   },
   {
     path: '',

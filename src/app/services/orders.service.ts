@@ -52,4 +52,20 @@ export class OrdersService {
 
     this.save();
   }
+
+  getNextOrderId(currentOrderId?: string): string | undefined {
+    const currentIndex = this.savedOrders().findIndex(
+      ({ id }) => id === currentOrderId
+    );
+
+    return this.savedOrders()[currentIndex + 1]?.id;
+  }
+
+  getPreviousOrderId(currentOrderId?: string): string | undefined {
+    const currentIndex = this.savedOrders().findIndex(
+      ({ id }) => id === currentOrderId
+    );
+
+    return this.savedOrders()[currentIndex - 1]?.id;
+  }
 }

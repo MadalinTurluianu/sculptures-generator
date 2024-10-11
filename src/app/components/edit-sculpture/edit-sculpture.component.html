@@ -7,3 +7,12 @@
     <button type="submit">Submit</button>
   </div>
 </form>
+@if (previousId()) {
+<button class="navigation">
+  <a [routerLink]="['/sculptures', previousId()]">Previous</a>
+</button>
+} @if (nextId()) {
+<button class="navigation">
+  <a [routerLink]="['/sculptures', nextId()]">Next</a>
+</button>
+}

@@ -50,4 +50,20 @@ export class SculpturesService {
 
     this.save();
   }
+
+  getNextSculptureId(currentSculptureId?: string): string | undefined {
+    const currentIndex = this.savedSculptures().findIndex(
+      ({ id }) => id === currentSculptureId
+    );
+
+    return this.savedSculptures()[currentIndex + 1]?.id;
+  }
+
+  getPreviousSculptureId(currentSculptureId?: string): string | undefined {
+    const currentIndex = this.savedSculptures().findIndex(
+      ({ id }) => id === currentSculptureId
+    );
+
+    return this.savedSculptures()[currentIndex - 1]?.id;
+  }
 }

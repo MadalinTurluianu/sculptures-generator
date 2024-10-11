@@ -26,3 +26,13 @@
     <button type="submit">Submit</button>
   </div>
 </form>
+
+@if (previousId()) {
+<button class="navigation">
+  <a [routerLink]="['/orders', previousId()]">Previous</a>
+</button>
+} @if (nextId()) {
+<button class="navigation">
+  <a [routerLink]="['/orders', nextId()]">Next</a>
+</button>
+}
