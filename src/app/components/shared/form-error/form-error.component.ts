@@ -1,4 +1,9 @@
-import { Component, computed, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
 @Component({
@@ -7,6 +12,7 @@ import { ValidationErrors } from '@angular/forms';
   imports: [],
   templateUrl: './form-error.component.html',
   styleUrl: './form-error.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormErrorComponent {
   errors = input<ValidationErrors | null>();

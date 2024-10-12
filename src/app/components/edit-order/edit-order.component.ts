@@ -59,6 +59,7 @@ export class EditOrderComponent implements OnChanges {
   ordersService = inject(OrdersService);
 
   submitted = false;
+  edited = false;
   errorMessage = signal<string>('');
 
   configuredSculptures = signal<ConfiguredSculpture[]>([]);
@@ -122,12 +123,16 @@ export class EditOrderComponent implements OnChanges {
         material: validatedValue.material,
       }),
     ]);
+
+    this.edited = true;
   }
 
   onDelete(index: number) {
     this.configuredSculptures.update((prev) =>
       prev.filter((_, i) => i !== index)
     );
+
+    this.edited = true;
   }
 
   onSubmit() {
@@ -164,6 +169,7 @@ export class EditOrderComponent implements OnChanges {
   }
 
   resetForm() {
+    this.edited = false;
     this.submitted = false;
     this.errorMessage.set('');
     this.form.reset();

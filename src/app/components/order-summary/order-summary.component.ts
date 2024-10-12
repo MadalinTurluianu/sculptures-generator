@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { ConfiguredSculpture } from 'app/models/configured-sculpture';
 import { RemoveButtonComponent } from '../shared/remove-button/remove-button.component';
@@ -10,6 +15,7 @@ import { RemoveButtonComponent } from '../shared/remove-button/remove-button.com
   imports: [CommonModule, RemoveButtonComponent, MatIcon],
   templateUrl: './order-summary.component.html',
   styleUrl: './order-summary.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderSummaryComponent {
   totalPrice = input.required<number>();

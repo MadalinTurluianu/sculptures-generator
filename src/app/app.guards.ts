@@ -5,6 +5,7 @@ interface FormComponent {
     dirty: boolean;
   };
   submitted: boolean;
+  edited?: boolean;
 }
 
 export const canDeactivateForm: CanDeactivateFn<FormComponent> = (
@@ -12,11 +13,11 @@ export const canDeactivateForm: CanDeactivateFn<FormComponent> = (
 ) => {
   if (component.submitted) return true;
 
-  if (component.form.dirty) {
+  if (component.form.dirty || component.edited) {
     return window.confirm(
       'Are you sure you want to leave this page? Your changes will be lost.'
     );
   }
-  
+
   return true;
 };
