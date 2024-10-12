@@ -4,7 +4,7 @@
       <mat-label>Buyer</mat-label>
       <input matInput type="text" formControlName="buyerName" />
       <mat-error
-        ><app-error-message [errors]="form.get('buyerName')?.errors" />
+        ><app-form-error [errors]="form.get('buyerName')?.errors" />
       </mat-error>
     </mat-form-field>
 
@@ -12,9 +12,7 @@
       <mat-label>Delivery address</mat-label>
       <input matInput type="text" formControlName="buyerDeliveryAddress" />
       <mat-error
-        ><app-error-message
-          [errors]="form.get('buyerDeliveryAddress')?.errors"
-        />
+        ><app-form-error [errors]="form.get('buyerDeliveryAddress')?.errors" />
       </mat-error>
     </mat-form-field>
 
@@ -25,14 +23,14 @@
       </div>
     </div>
 
-    <app-form-error [errors]="form.get('configuredSculpture')?.errors" />
-
     <app-order-summary
       [configuredSculptures]="configuredSculptures()"
       [totalPrice]="totalPrice()"
       [totalWeight]="totalWeight()"
       (delete)="onDelete($event)"
     />
+
+    <app-error-message [message]="errorMessage()" />
 
     <div class="actions">
       <a mat-button routerLink="/orders">Cancel</a>

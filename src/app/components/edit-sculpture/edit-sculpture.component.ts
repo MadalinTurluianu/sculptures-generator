@@ -19,7 +19,7 @@ import { Sculpture } from 'app/models/sculpture';
 import { SculpturesService } from 'app/services/sculptures.service';
 import { formValidators } from 'app/validators';
 import { EditItemComponent } from '../shared/edit-item/edit-item.component';
-import { ErrorMessageComponent } from "../shared/error-message/error-message.component";
+import { FormErrorComponent } from '../shared/form-error/form-error.component';
 
 @Component({
   selector: 'app-edit-sculpture',
@@ -31,8 +31,8 @@ import { ErrorMessageComponent } from "../shared/error-message/error-message.com
     MatInputModule,
     MatFormField,
     EditItemComponent,
-    ErrorMessageComponent
-],
+    FormErrorComponent,
+  ],
   templateUrl: './edit-sculpture.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

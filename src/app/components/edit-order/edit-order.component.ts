@@ -24,11 +24,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { EditItemComponent } from '../shared/edit-item/edit-item.component';
 import { AddButtonComponent } from '../shared/add-button/add-button.component';
-import { ErrorMessageComponent } from '../shared/error-message/error-message.component';
 import { FormErrorComponent } from '../shared/form-error/form-error.component';
+import { ErrorMessageComponent } from '../shared/error-message/error-message.component';
 
-type FormConfiguredSculpture = Partial<
-  Pick<ConfiguredSculpture, 'material' | 'sculpture'>
+type FormConfiguredSculpture = Pick<
+  ConfiguredSculpture,
+  'material' | 'sculpture'
 >;
 
 @Component({
@@ -44,8 +45,8 @@ type FormConfiguredSculpture = Partial<
     MatButtonModule,
     EditItemComponent,
     AddButtonComponent,
-    ErrorMessageComponent,
     FormErrorComponent,
+    ErrorMessageComponent,
   ],
   templateUrl: './edit-order.component.html',
   styleUrl: './edit-order.component.scss',
@@ -57,54 +58,17 @@ export class EditOrderComponent implements OnChanges {
   router = inject(Router);
   ordersService = inject(OrdersService);
 
-  form: FormGroup = new FormGroup({});
-  nextLink = computed(() => {
-    const nextId = this.ordersService.getNextOrderId(this.id());
-    return nextId ? ['/orders', nextId] : undefined;
-  });
-  prevLink = computed(() => {
-    const prevId = this.ordersService.getPreviousOrderId(this.id());
-    return prevId ? ['/orders', prevId] : undefined;
-  });
+  submitted = false;
+  errorMessage = signal<string>('');
 
   configuredSculptures = signal<ConfiguredSculpture[]>([]);
-  submitted = false;
 
-  ngOnChanges() {
-    this.submitted = false;
-    const id = this.id();
-    const order = id ? this.ordersService.getOrderById(id) : undefined;
-
-    this.form = new FormGroup({
-      buyerName: new FormControl<string>(order?.buyerName ?? '', {
-        validators: [Validators.required, formValidators.noWhitespace],
-      }),
-      buyerDeliveryAddress: new FormControl<string>(
-        order?.buyerDeliveryAddress ?? '',
-        {
-          validators: [Validators.required, formValidators.noWhitespace],
-        }
-      ),
-      configuredSculpture: new FormControl<FormConfiguredSculpture>(
-        {
-          material: undefined,
-          sculpture: undefined,
-        },
-        {
-          validators: [formValidators.validConfiguredSculpture],
-        }
-      ),
-    });
-
-    this.configuredSculptures.set(order?.configuredSculptures ?? []);
-  }
-
-  totalPrice = computed(() =>
-    this.configuredSculptures().reduce(
+  totalPrice = computed(() => {
+    return this.configuredSculptures().reduce(
       (prev, current) => prev + current.price,
       0
-    )
-  );
+    );
+  });
 
   totalWeight = computed(() => {
     return this.configuredSculptures().reduce(
@@ -113,14 +77,49 @@ export class EditOrderComponent implements OnChanges {
     );
   });
 
+  form = new FormGroup({
+    buyerName: new FormControl<string>('', {
+      validators: [Validators.required, formValidators.noWhitespace],
+    }),
+    buyerDeliveryAddress: new FormControl<string>('', {
+      validators: [Validators.required, formValidators.noWhitespace],
+    }),
+    configuredSculpture: new FormControl<Partial<FormConfiguredSculpture>>(
+      {
+        material: undefined,
+        sculpture: undefined,
+      },
+      {
+        validators: [formValidators.validConfiguredSculpture],
+      }
+    ),
+  });
+
+  nextLink = computed(() => {
+    const nextId = this.ordersService.getNextOrderId(this.id());
+    return nextId ? ['/orders', nextId] : undefined;
+  });
+
+  prevLink = computed(() => {
+    const prevId = this.ordersService.getPreviousOrderId(this.id());
+    return prevId ? ['/orders', prevId] : undefined;
+  });
+
+  ngOnChanges() {
+    this.resetForm();
+  }
+
   onAdd() {
-    if (!this.form.controls['configuredSculpture'].valid) return;
+    const control = this.form.controls['configuredSculpture'];
+    if (!control.valid) return;
+
+    const validatedValue = control.value as FormConfiguredSculpture;
 
     this.configuredSculptures.update((prev) => [
       ...prev,
       new ConfiguredSculpture({
-        sculpture: this.form.value.configuredSculpture.sculpture,
-        material: this.form.value.configuredSculpture.material,
+        sculpture: validatedValue.sculpture,
+        material: validatedValue.material,
       }),
     ]);
   }
@@ -132,14 +131,20 @@ export class EditOrderComponent implements OnChanges {
   }
 
   onSubmit() {
-    console.log(this.form);
-
     if (
       !this.form.controls['buyerName'].valid ||
-      !this.form.controls['buyerDeliveryAddress'].valid ||
-      this.configuredSculptures().length === 0 ||
-      this.totalWeight() > 100
+      !this.form.controls['buyerDeliveryAddress'].valid
     ) {
+      return;
+    }
+
+    if (this.configuredSculptures().length === 0) {
+      this.errorMessage.set('Please add at least one sculpture.');
+      return;
+    }
+
+    if (this.totalWeight() > 100) {
+      this.errorMessage.set('Total weight should not exceed 100 kg.');
       return;
     }
 
@@ -154,5 +159,26 @@ export class EditOrderComponent implements OnChanges {
 
     this.submitted = true;
     this.router.navigate(['/orders']);
+
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.submitted = false;
+    this.errorMessage.set('');
+    this.form.reset();
+
+    const id = this.id();
+
+    const order = id ? this.ordersService.getOrderById(id) : null;
+
+    if (order) {
+      this.form.patchValue({
+        buyerName: order?.buyerName,
+        buyerDeliveryAddress: order?.buyerDeliveryAddress,
+      });
+    }
+
+    this.configuredSculptures.set(order?.configuredSculptures ?? []);
   }
 }
