@@ -1,9 +1,6 @@
 import { Routes } from '@angular/router';
 import { OrdersComponent } from './components/orders/orders.component';
 import { canDeactivateFormGuard } from './guards/can-deactivate-form.guard';
-import { EditOrderComponent } from './components/edit-order/edit-order.component';
-import { SculpturesComponent } from './components/sculptures/sculptures.component';
-import { EditSculptureComponent } from './components/edit-sculpture/edit-sculpture.component';
 import { canMatchNewOrderGuard } from './guards/can-mach-new-order.guard';
 import { canMatchEditOrderGuard } from './guards/can-mach-edit-order.guard';
 
