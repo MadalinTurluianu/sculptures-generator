@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-$text-secondary: #f9f9f9;
-
-$primary-color: #cadce6;
-$secondary-color: #e2e9ec;
-$tertiary-color: #f9f9f9;
+$primary-color: var(--mdc-filled-text-field-container-color);
+$secondary-color: var(--mat-app-background-color);
 $accent-color: var(--mdc-filled-button-container-color);
 $danger-color: var(--mdc-filled-text-field-error-label-text-color);
+
+$hover-opacity: var(--mat-text-button-hover-state-layer-opacity);
+$hover-color: ($accent-color, $hover-opacity);
 
 $win-max: 40rem;
 
