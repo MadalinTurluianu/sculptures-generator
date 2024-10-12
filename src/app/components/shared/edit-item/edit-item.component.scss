@@ -1,5 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  mat-card-title {
+    margin-bottom: 1rem;
+  }
+}
+
 nav {
-  margin-top: 1rem;
   display: flex;
 
   .next {

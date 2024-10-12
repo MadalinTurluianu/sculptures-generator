@@ -1,4 +1,8 @@
-<app-edit-item [prevLink]="prevLink()" [nextLink]="nextLink()">
+<app-edit-item
+  [prevLink]="prevLink()"
+  [nextLink]="nextLink()"
+  [title]="id() ? 'Edit sculpture' : 'Create sculpture'"
+>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <mat-label>Name</mat-label>

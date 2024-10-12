@@ -1,6 +1,9 @@
-<section>
-  <ng-content />
-</section>
+<mat-card appearance="outlined">
+  <mat-card-header
+    ><mat-card-title>{{ title() }}</mat-card-title></mat-card-header
+  >
+  <mat-card-content><ng-content /></mat-card-content>
+</mat-card>
 <nav>
   @if (prevLink()) {
   <a mat-button [routerLink]="prevLink()">&lt; Previous</a>
