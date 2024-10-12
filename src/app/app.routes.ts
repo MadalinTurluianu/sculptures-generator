@@ -1,6 +1,11 @@
 import { Routes } from '@angular/router';
 import { OrdersComponent } from './components/orders/orders.component';
-import { canDeactivateForm } from './app.guards';
+import { canDeactivateFormGuard } from './guards/can-deactivate-form.guard';
+import { EditOrderComponent } from './components/edit-order/edit-order.component';
+import { SculpturesComponent } from './components/sculptures/sculptures.component';
+import { EditSculptureComponent } from './components/edit-sculpture/edit-sculpture.component';
+import { canMatchNewOrderGuard } from './guards/can-mach-new-order.guard';
+import { canMatchEditOrderGuard } from './guards/can-mach-edit-order.guard';
 
 export const routes: Routes = [
   {
@@ -13,7 +18,8 @@ export const routes: Routes = [
       import('./components/edit-order/edit-order.component').then(
         (modules) => modules.EditOrderComponent
       ),
-    canDeactivate: [canDeactivateForm],
+    canDeactivate: [canDeactivateFormGuard],
+    canMatch: [canMatchNewOrderGuard],
   },
   {
     path: 'orders/:id',
@@ -21,7 +27,8 @@ export const routes: Routes = [
       import('./components/edit-order/edit-order.component').then(
         (modules) => modules.EditOrderComponent
       ),
-    canDeactivate: [canDeactivateForm],
+    canDeactivate: [canDeactivateFormGuard],
+    canMatch: [canMatchEditOrderGuard],
   },
   {
     path: 'sculptures',
@@ -36,7 +43,7 @@ export const routes: Routes = [
       import('./components/edit-sculpture/edit-sculpture.component').then(
         (modules) => modules.EditSculptureComponent
       ),
-    canDeactivate: [canDeactivateForm],
+    canDeactivate: [canDeactivateFormGuard],
   },
   {
     path: 'sculptures/:id',
@@ -44,7 +51,11 @@ export const routes: Routes = [
       import('./components/edit-sculpture/edit-sculpture.component').then(
         (modules) => modules.EditSculptureComponent
       ),
-    canDeactivate: [canDeactivateForm],
+    canDeactivate: [canDeactivateFormGuard],
+  },
+  {
+    path: 'orders/:id',
+    redirectTo: 'sculptures/new',
   },
   {
     path: '',

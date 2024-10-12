@@ -8,7 +8,7 @@ interface FormComponent {
   edited?: boolean;
 }
 
-export const canDeactivateForm: CanDeactivateFn<FormComponent> = (
+export const canDeactivateFormGuard: CanDeactivateFn<FormComponent> = (
   component
 ) => {
   if (component.submitted) return true;
