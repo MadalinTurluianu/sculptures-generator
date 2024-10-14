@@ -12,5 +12,8 @@ export const canMatchNewOrderGuard: CanMatchFn = () => {
   window.alert(
     'You must have at least one sculpture. \nYou will be redirected to the new sculpture page.'
   );
+
+  window.electronAPI?.fixFocus();
+
   return false;
 };

@@ -14,9 +14,13 @@ export const canDeactivateFormGuard: CanDeactivateFn<FormComponent> = (
   if (component.submitted) return true;
 
   if (component.form.dirty || component.edited) {
-    return window.confirm(
+    const confirmed = window.confirm(
       'Are you sure you want to leave this page? Your changes will be lost.'
     );
+
+    window.electronAPI?.fixFocus()
+
+    return confirmed
   }
 
   return true;

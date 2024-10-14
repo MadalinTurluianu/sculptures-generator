@@ -14,14 +14,11 @@ function createWindow() {
     },
   });
 
-  ipcProcess();
+  ipcProcess(win);
 
   win.loadFile(
     path.join(__dirname, `dist/sculptures-generator/browser/index.html`)
   );
-
-  // Open the DevTools.
-  // win.webContents.openDevTools();
 }
 
 app.on("ready", () => {

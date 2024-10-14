@@ -5,6 +5,7 @@ export interface StatusObject {
 export interface ElectronAPI {
   saveData: (name: string, data: string) => Promise<StatusObject>;
   readData: (name: string) => Promise<string | StatusObject>;
+  fixFocus: () => void;
 }
 
 declare global {
