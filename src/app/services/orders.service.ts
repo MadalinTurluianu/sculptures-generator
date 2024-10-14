@@ -11,8 +11,9 @@ export class OrdersService {
   orders = this.savedOrders.asReadonly();
 
   constructor() {
-    const savedData = loadDataFromStorage('orders');
-    this.savedOrders.set(savedData);
+    loadDataFromStorage<Order>('orders').then((data) =>
+      this.savedOrders.set(data)
+    );
   }
 
   save() {

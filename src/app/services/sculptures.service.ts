@@ -11,8 +11,9 @@ export class SculpturesService {
   sculptures = this.savedSculptures.asReadonly();
 
   constructor() {
-    const savedData = loadDataFromStorage('sculptures');
-    this.savedSculptures.set(savedData);
+    loadDataFromStorage<Sculpture>('sculptures').then((data) =>
+      this.savedSculptures.set(data)
+    );
   }
 
   save() {
