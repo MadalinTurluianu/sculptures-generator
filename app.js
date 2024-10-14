@@ -6,15 +6,13 @@ let win;
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 1920,
-    height: 1080,
+    width: 1000,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, "electron/preload.js"),
     },
   });
-
-  win.webContents.openDevTools();
 
   ipcProcess();
 
