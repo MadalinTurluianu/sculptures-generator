@@ -16,7 +16,7 @@ import { ValidationErrors } from '@angular/forms';
 })
 export class FormErrorComponent {
   errors = input<ValidationErrors | null>();
-
+  // enum instead of '<whatever>' in errors
   message = computed<string | null>(() => {
     const errors = this.errors();
 
@@ -35,14 +35,6 @@ export class FormErrorComponent {
 
     if ('min' in errors) {
       errorMessages.push(`Minimum value is ${errors['min'].min}`);
-    }
-
-    if ('max' in errors) {
-      errorMessages.push(`Maximum value is ${errors['max'].max}`);
-    }
-
-    if ('empty' in errors) {
-      errorMessages.push('You should add at least one item');
     }
 
     return errorMessages.join('. ');

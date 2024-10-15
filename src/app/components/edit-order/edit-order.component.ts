@@ -32,6 +32,14 @@ type FormConfiguredSculpture = Pick<
   'material' | 'sculpture'
 >;
 
+interface FormComponent {
+  form: {
+    dirty: boolean;
+  };
+  submitted: boolean;
+  edited?: boolean;
+}
+
 @Component({
   selector: 'app-edit-order',
   standalone: true,
@@ -52,7 +60,7 @@ type FormConfiguredSculpture = Pick<
   styleUrl: './edit-order.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditOrderComponent implements OnChanges {
+export class EditOrderComponent implements OnChanges, FormComponent {
   id = input<string>();
 
   router = inject(Router);

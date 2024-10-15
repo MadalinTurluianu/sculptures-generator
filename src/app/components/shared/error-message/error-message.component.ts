@@ -8,6 +8,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   styleUrl: './error-message.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ErrorMessageComponent {
+export class ErrorMessageComponent { // mat-error?
   message = input<string>();
 }

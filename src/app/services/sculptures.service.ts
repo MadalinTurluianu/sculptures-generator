@@ -5,9 +5,12 @@ import { loadDataFromStorage, saveDataInStorage } from './helpers';
 @Injectable({
   providedIn: 'root',
 })
-export class SculpturesService {
+export class SculpturesService { // duplication?
+  // TODO: delete this state
   private savedSculptures = signal<Sculpture[]>([]);
+  // TODO: implement events from main process to renderer
 
+  // TODO: delete this state
   sculptures = this.savedSculptures.asReadonly();
 
   constructor() {
@@ -20,14 +23,17 @@ export class SculpturesService {
     saveDataInStorage('sculptures', JSON.stringify(this.savedSculptures()));
   }
 
+
+
+
+
   getSculptureById(id: string): Sculpture | undefined {
     return this.savedSculptures().find((sculpture) => sculpture.id === id);
   }
 
   upsertSculpture(sculpture: Sculpture): void {
-    const index = this.savedSculptures().findIndex(
-      ({ id }) => id === sculpture.id
-    );
+    const index = this.savedSculptures().findIndex(({ id }) => id === sculpture.id
+);
 
     if (index >= 0) {
       this.savedSculptures.update((sculptures) => {

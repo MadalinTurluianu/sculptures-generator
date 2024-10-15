@@ -55,6 +55,14 @@ export class EditSculptureComponent implements OnChanges {
 
   form: FormGroup = new FormGroup({});
 
+  /**
+   *
+   */
+  constructor() {
+    console.log('asdasd');
+
+  }
+
   ngOnChanges() {
     const id = this.id();
     const sculpture = id
@@ -78,7 +86,7 @@ export class EditSculptureComponent implements OnChanges {
     if (!this.form.valid) return;
 
     const sculpture: Sculpture = {
-      id: this.id() ?? crypto.randomUUID(),
+      id: this.id() ?? crypto.randomUUID(), // shit id in url? input.required?
       name: this.form.value.name ?? '',
       basePrice: this.form.value.basePrice ?? 0,
       baseWeight: this.form.value.baseWeight ?? 0,
