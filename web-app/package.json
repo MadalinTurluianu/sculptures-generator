@@ -1,12 +1,9 @@
 {
-  "name": "sculptures-generator",
+  "name": "web-app",
   "version": "0.0.0",
-  "main": "app.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "electron": "electron --trace-warnings .",
-    "electron:with-build": "ng build --base-href ./ && electron --trace-warnings .",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
