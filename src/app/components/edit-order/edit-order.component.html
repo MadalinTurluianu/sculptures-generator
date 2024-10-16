@@ -7,16 +7,14 @@
     <mat-form-field>
       <mat-label>Buyer</mat-label>
       <input matInput type="text" formControlName="buyerName" />
-      <mat-error
-        ><app-form-error [errors]="form.get('buyerName')?.errors" />
-      </mat-error>
+      <mat-error>{{ formatError(form.get("buyerName")?.errors) }}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Delivery address</mat-label>
       <input matInput type="text" formControlName="buyerDeliveryAddress" />
-      <mat-error
-        ><app-form-error [errors]="form.get('buyerDeliveryAddress')?.errors" />
+      <mat-error>
+        {{ formatError(form.get("buyerDeliveryAddress")?.errors) }}
       </mat-error>
     </mat-form-field>
 

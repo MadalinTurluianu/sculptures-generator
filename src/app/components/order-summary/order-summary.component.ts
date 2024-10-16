@@ -6,7 +6,7 @@ import {
   output,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { ConfiguredSculpture } from 'app/models/configured-sculpture';
+import { ConfiguredSculpture } from 'app/models/configured-sculpture.model';
 import { RemoveButtonComponent } from '../shared/remove-button/remove-button.component';
 
 @Component({

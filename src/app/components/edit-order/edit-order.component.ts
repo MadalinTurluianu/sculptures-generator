@@ -16,7 +16,7 @@ import {
 import { OrdersService } from 'app/services/orders.service';
 import { SculptureGeneratorComponent } from '../sculpture-generator/sculpture-generator.component';
 import { Router, RouterLink } from '@angular/router';
-import { ConfiguredSculpture } from 'app/models/configured-sculpture';
+import { ConfiguredSculpture } from 'app/models/configured-sculpture.model';
 import { OrderSummaryComponent } from '../order-summary/order-summary.component';
 import { formValidators } from 'app/validators';
 import { MatInputModule } from '@angular/material/input';
@@ -24,8 +24,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { EditItemComponent } from '../shared/edit-item/edit-item.component';
 import { AddButtonComponent } from '../shared/add-button/add-button.component';
-import { FormErrorComponent } from '../shared/form-error/form-error.component';
 import { ErrorMessageComponent } from '../shared/error-message/error-message.component';
+import { FormComponent } from 'app/models/form-component.model';
+import { generateError } from 'app/helpers/generate-error.helper';
 
 type FormConfiguredSculpture = Pick<
   ConfiguredSculpture,
@@ -45,21 +46,21 @@ type FormConfiguredSculpture = Pick<
     MatButtonModule,
     EditItemComponent,
     AddButtonComponent,
-    FormErrorComponent,
     ErrorMessageComponent,
   ],
   templateUrl: './edit-order.component.html',
   styleUrl: './edit-order.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditOrderComponent implements OnChanges {
+export class EditOrderComponent implements OnChanges, FormComponent {
   id = input<string>();
 
-  router = inject(Router);
   ordersService = inject(OrdersService);
 
-  submitted = false;
-  edited = false;
+  order = computed(() => this.ordersService.getById(this.id()));
+
+  router = inject(Router);
+
   errorMessage = signal<string>('');
 
   configuredSculptures = signal<ConfiguredSculpture[]>([]);
@@ -97,12 +98,12 @@ export class EditOrderComponent implements OnChanges {
   });
 
   nextLink = computed(() => {
-    const nextId = this.ordersService.getNextOrderId(this.id());
+    const nextId = this.ordersService.getNextId(this.order()?.id);
     return nextId ? ['/orders', nextId] : undefined;
   });
 
   prevLink = computed(() => {
-    const prevId = this.ordersService.getPreviousOrderId(this.id());
+    const prevId = this.ordersService.getPreviousId(this.order()?.id);
     return prevId ? ['/orders', prevId] : undefined;
   });
 
@@ -124,7 +125,7 @@ export class EditOrderComponent implements OnChanges {
       }),
     ]);
 
-    this.edited = true;
+    this.form.markAsDirty();
   }
 
   onDelete(index: number) {
@@ -132,7 +133,7 @@ export class EditOrderComponent implements OnChanges {
       prev.filter((_, i) => i !== index)
     );
 
-    this.edited = true;
+    this.form.markAsDirty();
   }
 
   onSubmit() {
@@ -153,30 +154,29 @@ export class EditOrderComponent implements OnChanges {
       return;
     }
 
-    this.ordersService.upsertOrder({
-      id: this.id() ?? crypto.randomUUID(),
-      buyerName: this.form.value.buyerName ?? '',
-      buyerDeliveryAddress: this.form.value.buyerDeliveryAddress ?? '',
+    this.ordersService.upsert({
+      id: this.order()?.id ?? crypto.randomUUID(),
+      buyerName: (this.form.value.buyerName ?? '').trim(),
+      buyerDeliveryAddress: (this.form.value.buyerDeliveryAddress ?? '').trim(),
       configuredSculptures: this.configuredSculptures(),
       totalPrice: this.totalPrice(),
       totalWeight: this.totalWeight(),
     });
 
-    this.submitted = true;
+    this.form.markAsPristine();
+
     this.router.navigate(['/orders']);
 
     this.resetForm();
   }
 
+  formatError = generateError;
+
   resetForm() {
-    this.edited = false;
-    this.submitted = false;
     this.errorMessage.set('');
     this.form.reset();
 
-    const id = this.id();
-
-    const order = id ? this.ordersService.getOrderById(id) : null;
+    const order = this.order();
 
     if (order) {
       this.form.patchValue({

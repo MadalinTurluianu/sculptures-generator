@@ -1,5 +1,5 @@
-import { Material } from './material';
-import { Sculpture } from './sculpture';
+import { Material } from './material.model';
+import { Sculpture } from './sculpture.model';
 
 const materialPrice = {
   [Material.Wood]: 1,

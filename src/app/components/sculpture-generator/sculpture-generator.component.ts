@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ConfiguredSculpture } from 'app/models/configured-sculpture';
-import { Material } from 'app/models/material';
+import { ConfiguredSculpture } from 'app/models/configured-sculpture.model';
+import { Material } from 'app/models/material.model';
 import { SculpturesService } from 'app/services/sculptures.service';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -33,7 +33,7 @@ export class SculptureGeneratorComponent implements ControlValueAccessor {
   materials = [Material.Wood, Material.Bronze, Material.Platinum];
 
   sculpturesService = inject(SculpturesService);
-  sculptures = this.sculpturesService.sculptures;
+  sculptures = this.sculpturesService.items;
 
   sculptureId: string | undefined;
   material: Material | undefined;

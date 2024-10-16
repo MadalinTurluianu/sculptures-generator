@@ -1,5 +1,5 @@
 <app-list [addItemLink]="['/sculptures', 'new']" title="Your Sculptures">
-  @for (sculpture of sculpturesService.sculptures(); track sculpture.id) {
+  @for (sculpture of sculpturesService.items(); track sculpture.id) {
   <app-sculpture [sculpture]="sculpture" />
   }</app-list
 >

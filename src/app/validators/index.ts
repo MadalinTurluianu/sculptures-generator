@@ -1,6 +1,6 @@
 import { ValidatorFn } from '@angular/forms';
-import { noWhitespaceValidator } from './no-whitespace';
-import { validConfiguredSculptureValidator } from './valid-configured-sculpture';
+import { noWhitespaceValidator } from './no-whitespace.validator';
+import { validConfiguredSculptureValidator } from './valid-configured-sculpture.validator';
 
 export const formValidators = {
   noWhitespace: noWhitespaceValidator,

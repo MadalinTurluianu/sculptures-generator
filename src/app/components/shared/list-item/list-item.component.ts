@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
-import { Key } from 'app/models/key';
+import { Key } from 'app/models/key.model';
 import { RemoveButtonComponent } from '../remove-button/remove-button.component';
 
 @Component({

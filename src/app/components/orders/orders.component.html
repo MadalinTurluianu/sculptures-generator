@@ -1,5 +1,5 @@
 <app-list [addItemLink]="['/orders', 'new']" title="Your orders">
-  @for (order of ordersService.orders(); track order.id) {
+  @for (order of ordersService.items(); track order.id) {
   <app-order [order]="order" />
   }</app-list
 >

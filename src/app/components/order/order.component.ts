@@ -5,7 +5,7 @@ import {
   input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Order } from 'app/models/order';
+import { Order } from 'app/models/order.model';
 import { OrdersService } from 'app/services/orders.service';
 import { MatCardModule } from '@angular/material/card';
 import { ListItemComponent } from '../shared/list-item/list-item.component';
@@ -23,6 +23,6 @@ export class OrderComponent {
   ordersService = inject(OrdersService);
 
   onDelete() {
-    this.ordersService.deleteOrder(this.order().id);
+    this.ordersService.delete(this.order().id);
   }
 }

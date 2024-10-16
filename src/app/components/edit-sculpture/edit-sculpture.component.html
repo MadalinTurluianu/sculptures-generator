@@ -7,25 +7,19 @@
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput type="text" formControlName="name" />
-      <mat-error
-        ><app-form-error [errors]="form.get('name')?.errors" />
-      </mat-error>
+      <mat-error>{{ formatError(form.get("name")?.errors) }}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Base price</mat-label>
       <input matInput type="number" formControlName="basePrice" />
-      <mat-error
-        ><app-form-error [errors]="form.get('basePrice')?.errors" />
-      </mat-error>
+      <mat-error> {{ formatError(form.get("basePrice")?.errors) }}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Base weight</mat-label>
       <input matInput type="number" formControlName="baseWeight" />
-      <mat-error
-        ><app-form-error [errors]="form.get('baseWeight')?.errors" />
-      </mat-error>
+      <mat-error>{{ formatError(form.get("baseWeight")?.errors) }}</mat-error>
     </mat-form-field>
 
     <div class="actions">

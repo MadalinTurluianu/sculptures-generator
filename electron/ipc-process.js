@@ -1,12 +1,22 @@
 const { ipcMain } = require("electron");
-const { electronSaveData } = require("./ipc-functions/save-data");
-const { electronReadData } = require("./ipc-functions/read-data");
+const { Store } = require("./store");
 
 function ipcProcess(win) {
-  ipcMain.handle("save-data", (_event, ...args) => electronSaveData(...args));
-  ipcMain.handle("read-data", (_event, ...args) => electronReadData(...args));
+  const store = new Store((name, items) => {
+    win.webContents.send("update-item", name, items);
+  });
 
-  // This fixes the known problem with not being to focus the window after an alert or confirm\
+  ipcMain.handle("post-item", (_event, name, item) =>
+    store.postItem(name, item)
+  );
+
+  ipcMain.handle("get-items", (_event, name) => store.getItems(name));
+
+  ipcMain.handle("delete-item", (_event, name, id) =>
+    store.deleteItem(name, id)
+  );
+
+  // This fixes the known problem with not being to focus the window after an alert or confirm
   // https://github.com/electron/electron/issues/31917
   ipcMain.on("fix-focus", () => {
     win.blur();

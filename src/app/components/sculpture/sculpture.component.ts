@@ -5,7 +5,7 @@ import {
   input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Sculpture } from 'app/models/sculpture';
+import { Sculpture } from 'app/models/sculpture.model';
 import { SculpturesService } from 'app/services/sculptures.service';
 import { ListItemComponent } from '../shared/list-item/list-item.component';
 
@@ -22,6 +22,6 @@ export class SculptureComponent {
   sculpturesService = inject(SculpturesService);
 
   onDelete() {
-    this.sculpturesService.deleteSculpture(this.sculpture().id);
+    this.sculpturesService.delete(this.sculpture().id);
   }
 }
