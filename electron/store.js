@@ -81,7 +81,7 @@ class Store {
 
   async deleteItem(name, id) {
     try {
-      const items = await this.getItems(name);
+      const { data: items } = await this.getItems(name);
 
       const existingItemIndex = items.findIndex((item) => id === item.id);
 
